@@ -3,6 +3,7 @@ import { useAppStore } from '../../store'
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useSnackbar } from 'notistack';
 
 const schema = z.object({
     name: z.string().min(3, 'Name must be at least 3 characters').max(20, 'Name cannot exceed 20 characters'),
@@ -11,7 +12,7 @@ const schema = z.object({
 
 function Sidebar() {
     const { selectedNode, setCurrentType, currentType, editNode, addNode, setSelectedNode } = useAppStore()
-
+    const { enqueueSnackbar } = useSnackbar()
     const {
         control,
         handleSubmit,
@@ -28,9 +29,11 @@ function Sidebar() {
         if (selectedNode) {
             const newValue = { ...selectedNode, data: { label: value.name } }
             editNode(newValue)
+            enqueueSnackbar({message:"node editted successfully!", variant:'success'})
         } else {
             const { type, name } = value
             addNode(type, name)
+            enqueueSnackbar({message:"node added successfully!", variant:'success'})
         }
         reset()
         setSelectedNode(null)

@@ -9,9 +9,8 @@ function HabitNode({ data, isConnectable }) {
 
   return (
     <>
-      <h2 className='text-center text-xl font-bold pb-4'>{data.label}</h2>
-
       <div className="text-updater-node border border-slate-900 p-2 rounded">
+      <h2 className='text-center text-xl font-bold pb-4'>{data.label}</h2>
         <Handle
           type="target"
           position={Position.Top}
